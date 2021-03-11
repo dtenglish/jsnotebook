@@ -42,17 +42,21 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ onChange, initialValue }) => {
     // get current value from editor
     const unformatted = editorRef.current.getModel().getValue();
 
-    // format that value
-    const formatted = prettier.format(unformatted, {
-      parser: 'babel',
-      plugins: [parser],
-      useTabs: false,
-      semi: true,
-      singleQuote: true
-    }).replace(/\n$/, '');
+    // try to format that value
+    try {
+      const formatted = prettier.format(unformatted, {
+        parser: 'babel',
+        plugins: [parser],
+        useTabs: false,
+        semi: true,
+        singleQuote: true
+      }).replace(/\n$/, '');
 
-    // set formatted value in editor
-    editorRef.current.setValue(formatted);
+      // set formatted value in editor
+      editorRef.current.setValue(formatted);
+    } catch (err) {
+      // add formatting error message
+    }
   };
 
   return (
