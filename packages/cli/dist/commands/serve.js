@@ -43,6 +43,7 @@ exports.serveCommand = void 0;
 var path_1 = __importDefault(require("path"));
 var commander_1 = require("commander");
 var local_api_1 = require("local-api");
+var isProduction = process.env.NODE_ENV === 'production';
 exports.serveCommand = new commander_1.Command()
     .command('serve [filename]')
     .description('Open a file for editing')
@@ -61,7 +62,7 @@ exports.serveCommand = new commander_1.Command()
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 3, , 4]);
-                    return [4 /*yield*/, local_api_1.serve(dir, path_1.default.basename(filename), parseInt(port))];
+                    return [4 /*yield*/, local_api_1.serve(dir, path_1.default.basename(filename), parseInt(port), !isProduction)];
                 case 2:
                     _a.sent();
                     console.log("Opened " + filename + ". Navigate to http://localhost:" + port + " to access the notebook editor.");

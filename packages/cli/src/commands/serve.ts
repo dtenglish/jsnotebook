@@ -2,6 +2,8 @@ import path from 'path';
 import { Command } from 'commander';
 import { serve } from 'local-api';
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 export const serveCommand = new Command()
   .command('serve [filename]')
   .description('Open a file for editing')
@@ -9,10 +11,11 @@ export const serveCommand = new Command()
   .action(async (filename = 'notebook.js', options: { port: string }) => {
     const dir = path.join(process.cwd(), path.dirname(filename));
     var { port } = options;
+
     if (port.charAt(0) === '=') port = port.substring(1);
 
     try {
-      await serve(dir, path.basename(filename), parseInt(port));
+      await serve(dir, path.basename(filename), parseInt(port), !isProduction);
       console.log(
         `Opened ${filename}. Navigate to http://localhost:${port} to access the notebook editor.`
       );
