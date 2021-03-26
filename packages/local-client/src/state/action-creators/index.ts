@@ -71,7 +71,7 @@ export const createBundle = (id: string, input: string) => {
   };
 };
 
-export const FetchCells = () => {
+export const fetchCells = () => {
   return async (dispatch: Dispatch<Action>) => {
     dispatch({ type: ActionType.FETCH_CELLS });
 
@@ -91,7 +91,7 @@ export const FetchCells = () => {
   };
 };
 
-export const SaveCells = () => {
+export const saveCells = () => {
   return async (dispatch: Dispatch<Action>, getState: () => RootState) => {
     const { cells: { data, order } } = getState();
 
